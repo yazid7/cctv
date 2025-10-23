@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -156,27 +157,6 @@
             background-color: var(--secondary-color);
             border-color: var(--secondary-color);
         }
-        
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-        }
-        
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-        }
-        
-        .price-tag {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            display: inline-block;
-        }
     </style>
 </head>
 <body>
@@ -249,7 +229,11 @@
                     <label for="brandFilter" class="form-label">الماركة</label>
                     <select class="form-select" id="brandFilter">
                         <option value="all">جميع الماركات</option>
-                        <!-- سيتم ملء هذا القسم من API -->
+                        <option value="hikvision">Hikvision</option>
+                        <option value="dahua">Dahua</option>
+                        <option value="samsung">Samsung</option>
+                        <option value="bosch">Bosch</option>
+                        <option value="axis">Axis</option>
                     </select>
                 </div>
             </div>
@@ -259,13 +243,8 @@
     <!-- قسم الماركات -->
     <section id="brands" class="container my-5">
         <h2 class="section-title">ماركات كاميرات المراقبة وأجهزة التسجيل</h2>
-        <div class="loading" id="brandsLoading">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">جاري التحميل...</span>
-            </div>
-        </div>
         <div class="row" id="brandsContainer">
-            <!-- سيتم ملء هذا القسم بالبيانات من API -->
+            <!-- سيتم ملء هذا القسم بالبيانات من JavaScript -->
         </div>
     </section>
 
@@ -321,13 +300,8 @@
     <!-- قسم قطع التوصيل -->
     <section id="accessories" class="container my-5">
         <h2 class="section-title">قطع التوصيل والملحقات</h2>
-        <div class="loading" id="accessoriesLoading">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">جاري التحميل...</span>
-            </div>
-        </div>
         <div class="row" id="accessoriesContainer">
-            <!-- سيتم ملء هذا القسم بالبيانات من API -->
+            <!-- سيتم ملء هذا القسم بالبيانات من JavaScript -->
         </div>
     </section>
 
@@ -436,12 +410,8 @@
     
     <!-- JavaScript المخصص -->
     <script>
-        // API URLs
-        const BRANDS_API_URL = 'https://671e18d15a38f76b6a1249c8.mockapi.io/api/brands';
-        const ACCESSORIES_API_URL = 'https://671e18d15a38f76b6a1249c8.mockapi.io/api/accessories';
-        
-        // بيانات افتراضية في حالة فشل API
-        const defaultBrands = [
+        // بيانات الماركات
+        const brands = [
             {
                 id: 1,
                 name: "Hikvision",
@@ -449,8 +419,7 @@
                 compatibility: ["home", "business"],
                 image: "https://via.placeholder.com/200x120/3498db/ffffff?text=Hikvision",
                 description: "كاميرات مراقبة عالية الدقة مع رؤية ليلية متقدمة وتقنية الكشف الذكي.",
-                installation: "سهلة التركيب مع دعم كامل لأنظمة المنازل والشركات.",
-                price: "450 ريال"
+                installation: "سهلة التركيب مع دعم كامل لأنظمة المنازل والشركات."
             },
             {
                 id: 2,
@@ -459,68 +428,105 @@
                 compatibility: ["home", "business"],
                 image: "https://via.placeholder.com/200x120/e74c3c/ffffff?text=Dahua",
                 description: "أنظمة مراقبة متكاملة مع تقنيات تحليل فيديو متقدمة.",
-                installation: "توافق مع مختلف أنظمة الشبكات وإعدادات سهلة.",
-                price: "380 ريال"
+                installation: "توافق مع مختلف أنظمة الشبكات وإعدادات سهلة."
+            },
+            {
+                id: 3,
+                name: "Samsung",
+                category: "camera",
+                compatibility: ["home"],
+                image: "https://via.placeholder.com/200x120/2ecc71/ffffff?text=Samsung",
+                description: "كاميرات مراقبة منزلية بتصميم أنيق وجودة تصوير عالية.",
+                installation: "تركيب سريع مع تطبيق هاتف ذكي للتحكم الكامل."
+            },
+            {
+                id: 4,
+                name: "Bosch",
+                category: "recorder",
+                compatibility: ["business"],
+                image: "https://via.placeholder.com/200x120/9b59b6/ffffff?text=Bosch",
+                description: "أجهزة تسجيل متقدمة مع سعات تخزين كبيرة وتقنيات تشفير متطورة.",
+                installation: "تركيب احترافي مع إعدادات أمنية متقدمة للشركات."
+            },
+            {
+                id: 5,
+                name: "Axis",
+                category: "camera",
+                compatibility: ["business"],
+                image: "https://via.placeholder.com/200x120/f39c12/ffffff?text=Axis",
+                description: "كاميرات مراقبة احترافية مع تقنيات رؤية حرارية وكشف حركة متقدم.",
+                installation: "تركيب متخصص مع تكامل مع أنظمة الأمن الأخرى."
+            },
+            {
+                id: 6,
+                name: "Hikvision NVR",
+                category: "recorder",
+                compatibility: ["home", "business"],
+                image: "https://via.placeholder.com/200x120/3498db/ffffff?text=Hikvision+NVR",
+                description: "أجهزة تسجيل شبكية متوافقة مع كاميرات Hikvision وأنظمة أخرى.",
+                installation: "تركيب سهل مع واجهة مستخدم بسيطة وإعدادات سريعة."
             }
         ];
-        
-        const defaultAccessories = [
+
+        // بيانات قطع التوصيل
+        const accessories = [
             {
                 id: 1,
                 name: "كابل طاقة",
                 image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Power+Cable",
-                description: "كابلات طاقة معزولة ومقاومة للعوامل الجوية.",
-                price: "25 ريال"
+                description: "كابلات طاقة معزولة ومقاومة للعوامل الجوية."
             },
             {
                 id: 2,
                 name: "كابل شبكة",
                 image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Network+Cable",
-                description: "كابلات شبكة Cat5e و Cat6 لنقل البيانات بجودة عالية.",
-                price: "35 ريال"
+                description: "كابلات شبكة Cat5e و Cat6 لنقل البيانات بجودة عالية."
+            },
+            {
+                id: 3,
+                name: "حامل كاميرا",
+                image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Camera+Mount",
+                description: "حوامل متعددة الاستخدامات للتركيب على الجدران والأسقف."
+            },
+            {
+                id: 4,
+                name: "محول طاقة",
+                image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Power+Adapter",
+                description: "محولات طاقة متنوعة مع حماية من تقلبات الجهد."
+            },
+            {
+                id: 5,
+                name: "قناة كابلات",
+                image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Cable+Duct",
+                description: "قنوات بلاستيكية لإخفاء وتنظيم الكابلات."
+            },
+            {
+                id: 6,
+                name: "موزع شبكة",
+                image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Network+Switch",
+                description: "أجهزة شبكة لتوصيل كاميرات IP متعددة."
             }
         ];
 
-        // جلب البيانات من API
-        async function fetchData(url, fallbackData) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error('فشل في جلب البيانات');
-                }
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('خطأ في جلب البيانات:', error);
-                return fallbackData;
-            }
-        }
-
         // عرض الماركات
-        function displayBrands(brandsToShow) {
+        function displayBrands(brandsToShow = brands) {
             const container = document.getElementById('brandsContainer');
             container.innerHTML = '';
             
-            if (brandsToShow.length === 0) {
-                container.innerHTML = '<div class="col-12 text-center"><p>لا توجد منتجات مطابقة لبحثك.</p></div>';
-                return;
-            }
-            
             brandsToShow.forEach(brand => {
-                const compatibilityText = Array.isArray(brand.compatibility) ? 
-                    brand.compatibility.map(c => c === 'home' ? 'المنازل' : 'الشركات').join(' و ') : 
-                    (brand.compatibility === 'both' ? 'المنازل والشركات' : brand.compatibility);
+                const compatibilityText = brand.compatibility.includes('both') ? 
+                    'المنازل والشركات' : 
+                    brand.compatibility.map(c => c === 'home' ? 'المنازل' : 'الشركات').join(' و ');
                 
                 const card = `
                     <div class="col-md-6 col-lg-4">
-                        <div class="card brand-card" data-category="${brand.category}" data-compatibility="${brand.compatibility}" data-brand="${brand.name.toLowerCase()}">
-                            <img src="${brand.image}" class="card-img-top brand-logo" alt="${brand.name}" onerror="this.src='https://via.placeholder.com/200x120/95a5a6/ffffff?text=No+Image'">
+                        <div class="card brand-card" data-category="${brand.category}" data-compatibility="${brand.compatibility.join(',')}" data-brand="${brand.name.toLowerCase()}">
+                            <img src="${brand.image}" class="card-img-top brand-logo" alt="${brand.name}">
                             <div class="card-body">
                                 <h5 class="card-title">${brand.name}</h5>
                                 <p class="card-text">${brand.description}</p>
                                 <p><strong>التوافق:</strong> ${compatibilityText}</p>
-                                <p><strong>التركيب:</strong> ${brand.installation || 'سهل التركيب مع دليل مفصل.'}</p>
-                                ${brand.price ? `<p class="price-tag">${brand.price}</p>` : ''}
+                                <p><strong>التركيب:</strong> ${brand.installation}</p>
                                 <a href="#" class="btn btn-primary">تفاصيل التركيب</a>
                             </div>
                         </div>
@@ -531,24 +537,18 @@
         }
 
         // عرض قطع التوصيل
-        function displayAccessories(accessoriesToShow) {
+        function displayAccessories() {
             const container = document.getElementById('accessoriesContainer');
             container.innerHTML = '';
             
-            if (accessoriesToShow.length === 0) {
-                container.innerHTML = '<div class="col-12 text-center"><p>لا توجد قطع توصيل مطابقة لبحثك.</p></div>';
-                return;
-            }
-            
-            accessoriesToShow.forEach(accessory => {
+            accessories.forEach(accessory => {
                 const card = `
                     <div class="col-md-6 col-lg-4 col-xl-3">
                         <div class="card accessory-card">
-                            <img src="${accessory.image}" class="card-img-top accessory-img" alt="${accessory.name}" onerror="this.src='https://via.placeholder.com/150x100/95a5a6/ffffff?text=No+Image'">
+                            <img src="${accessory.image}" class="card-img-top accessory-img" alt="${accessory.name}">
                             <div class="card-body text-center">
                                 <h5 class="card-title">${accessory.name}</h5>
                                 <p class="card-text">${accessory.description}</p>
-                                ${accessory.price ? `<p class="price-tag">${accessory.price}</p>` : ''}
                             </div>
                         </div>
                     </div>
@@ -558,7 +558,7 @@
         }
 
         // فلترة المنتجات
-        function filterProducts(brands, accessories) {
+        function filterProducts() {
             const categoryFilter = document.getElementById('categoryFilter').value;
             const compatibilityFilter = document.getElementById('compatibilityFilter').value;
             const brandFilter = document.getElementById('brandFilter').value;
@@ -572,13 +572,9 @@
             if (compatibilityFilter !== 'all') {
                 filteredBrands = filteredBrands.filter(brand => {
                     if (compatibilityFilter === 'both') {
-                        return Array.isArray(brand.compatibility) ? 
-                            brand.compatibility.includes('home') && brand.compatibility.includes('business') :
-                            brand.compatibility === 'both';
+                        return brand.compatibility.includes('home') && brand.compatibility.includes('business');
                     }
-                    return Array.isArray(brand.compatibility) ? 
-                        brand.compatibility.includes(compatibilityFilter) : 
-                        brand.compatibility === compatibilityFilter;
+                    return brand.compatibility.includes(compatibilityFilter);
                 });
             }
             
@@ -587,84 +583,41 @@
             }
             
             displayBrands(filteredBrands);
-            
-            // عرض قطع التوصيل بناءً على التصنيف
-            if (categoryFilter === 'all' || categoryFilter === 'accessory') {
-                document.getElementById('accessoriesContainer').style.display = 'flex';
-                displayAccessories(accessories);
-            } else {
-                document.getElementById('accessoriesContainer').style.display = 'none';
-            }
         }
 
         // البحث
-        function searchProducts(brands, accessories) {
+        function searchProducts() {
             const searchInput = document.getElementById('searchInput');
             const searchTerm = searchInput.value.toLowerCase();
             
             if (searchTerm.trim() === '') {
-                displayBrands(brands);
-                displayAccessories(accessories);
+                displayBrands();
                 return;
             }
             
             const filteredBrands = brands.filter(brand => 
                 brand.name.toLowerCase().includes(searchTerm) || 
                 brand.description.toLowerCase().includes(searchTerm) ||
-                (brand.installation && brand.installation.toLowerCase().includes(searchTerm))
-            );
-            
-            const filteredAccessories = accessories.filter(accessory => 
-                accessory.name.toLowerCase().includes(searchTerm) || 
-                accessory.description.toLowerCase().includes(searchTerm)
+                brand.installation.toLowerCase().includes(searchTerm)
             );
             
             displayBrands(filteredBrands);
-            displayAccessories(filteredAccessories);
-        }
-
-        // ملء خيارات التصفية
-        function populateBrandFilters(brands) {
-            const brandFilter = document.getElementById('brandFilter');
-            const uniqueBrands = [...new Set(brands.map(brand => brand.name))];
-            
-            uniqueBrands.forEach(brand => {
-                const option = document.createElement('option');
-                option.value = brand.toLowerCase();
-                option.textContent = brand;
-                brandFilter.appendChild(option);
-            });
         }
 
         // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', async function() {
-            // جلب البيانات من API
-            const brandsData = await fetchData(BRANDS_API_URL, defaultBrands);
-            const accessoriesData = await fetchData(ACCESSORIES_API_URL, defaultAccessories);
-            
-            // إخفاء مؤشرات التحميل
-            document.getElementById('brandsLoading').style.display = 'none';
-            document.getElementById('accessoriesLoading').style.display = 'none';
-            
-            // عرض البيانات
-            displayBrands(brandsData);
-            displayAccessories(accessoriesData);
-            populateBrandFilters(brandsData);
+        document.addEventListener('DOMContentLoaded', function() {
+            displayBrands();
+            displayAccessories();
             
             // إضافة مستمعي الأحداث للفلترة
-            document.getElementById('categoryFilter').addEventListener('change', () => filterProducts(brandsData, accessoriesData));
-            document.getElementById('compatibilityFilter').addEventListener('change', () => filterProducts(brandsData, accessoriesData));
-            document.getElementById('brandFilter').addEventListener('change', () => filterProducts(brandsData, accessoriesData));
+            document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+            document.getElementById('compatibilityFilter').addEventListener('change', filterProducts);
+            document.getElementById('brandFilter').addEventListener('change', filterProducts);
             
             // إضافة مستمع حدث للبحث
             document.querySelector('form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                searchProducts(brandsData, accessoriesData);
-            });
-            
-            // البحث أثناء الكتابة
-            document.getElementById('searchInput').addEventListener('input', () => {
-                searchProducts(brandsData, accessoriesData);
+                searchProducts();
             });
         });
     </script>
