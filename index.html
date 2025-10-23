@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كاميرات المراقبة وأجهزة التسجيل - نظام الحماية الشامل</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1558618666-fcd25856cd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .brand-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .brand-logo {
+            height: 120px;
+            object-fit: contain;
+            padding: 15px;
+        }
+        
+        .installation-steps {
+            counter-reset: step-counter;
+        }
+        
+        .step-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 30px;
+        }
+        
+        .step-item:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .accessory-card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .accessory-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .accessory-img {
+            height: 150px;
+            object-fit: contain;
+            padding: 15px;
+        }
+        
+        .tips-section {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 30px;
+        }
+        
+        .filter-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .btn-outline-primary {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        .price-tag {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-shield-alt me-2"></i>
+                نظام الحماية الشامل
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#brands">الماركات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#installation">طريقة التركيب</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#accessories">قطع التوصيل</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tips">نصائح التركيب</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="ابحث عن منتج..." id="searchInput">
+                    <button class="btn btn-outline-light" type="submit">بحث</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم البطل -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">أنظمة المراقبة والأمن الشامل</h1>
+            <p class="lead mb-4">حماية منزلية وتجارية متكاملة ضد السرقة والاختراق</p>
+            <a href="#brands" class="btn btn-primary btn-lg">استكشف المنتجات</a>
+        </div>
+    </section>
+
+    <!-- قسم التصفية -->
+    <section class="container my-5">
+        <div class="filter-section">
+            <h3 class="mb-4">تصفية المنتجات</h3>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="categoryFilter" class="form-label">التصنيف</label>
+                    <select class="form-select" id="categoryFilter">
+                        <option value="all">جميع التصنيفات</option>
+                        <option value="camera">كاميرات</option>
+                        <option value="recorder">أجهزة تسجيل</option>
+                        <option value="accessory">قطع توصيل</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="compatibilityFilter" class="form-label">التوافق</label>
+                    <select class="form-select" id="compatibilityFilter">
+                        <option value="all">جميع الأنظمة</option>
+                        <option value="home">المنازل</option>
+                        <option value="business">الشركات</option>
+                        <option value="both">المنازل والشركات</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="brandFilter" class="form-label">الماركة</label>
+                    <select class="form-select" id="brandFilter">
+                        <option value="all">جميع الماركات</option>
+                        <!-- سيتم ملء هذا القسم من API -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الماركات -->
+    <section id="brands" class="container my-5">
+        <h2 class="section-title">ماركات كاميرات المراقبة وأجهزة التسجيل</h2>
+        <div class="loading" id="brandsLoading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">جاري التحميل...</span>
+            </div>
+        </div>
+        <div class="row" id="brandsContainer">
+            <!-- سيتم ملء هذا القسم بالبيانات من API -->
+        </div>
+    </section>
+
+    <!-- قسم طريقة التركيب -->
+    <section id="installation" class="container my-5">
+        <h2 class="section-title">طريقة تركيب أنظمة المراقبة</h2>
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="mb-4">التركيب للمنازل</h4>
+                <div class="installation-steps">
+                    <div class="step-item">
+                        <h5>تخطيط المواقع</h5>
+                        <p>حدد النقاط الاستراتيجية في منزلك التي تحتاج إلى مراقبة مثل المداخل والنوافذ والمناطق المشتركة.</p>
+                    </div>
+                    <div class="step-item">
+                        <h5>تثبيت الكاميرات</h5>
+                        <p>قم بتثبيت الكاميرات في المواقع المحددة باستخدام الحوامل المناسبة وتأكد من توجيهها بشكل صحيح.</p>
+                    </div>
+                    <div class="step-item">
+                        <h5>توصيل الكابلات</h5>
+                        <p>قم بتوصيل كابلات الطاقة والبيانات بين الكاميرات وجهاز التسجيل مع إخفاء الأسلاك للحفاظ على المظهر الجمالي.</p>
+                    </div>
+                    <div class="step-item">
+                        <h5>إعداد النظام</h5>
+                        <p>قم بتوصيل جهاز التسجيل بشاشة العرض وشبكة الإنترنت وإعداد التطبيقات للوصول عن بعد.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4 class="mb-4">التركيب للشركات</h4>
+                <div class="installation-steps">
+                    <div class="step-item">
+                        <h5>تقييم الاحتياجات الأمنية</h5>
+                        <p>قم بتحليل نقاط الضعف في المبنى وتحديد المناطق التي تحتاج إلى مراقبة مكثفة.</p>
+                    </div>
+                    <div class="step-item">
+                        <h5>تخطيط النظام المتكامل</h5>
+                        <p>صمم نظام مراقبة متكاملاً يتضمن كاميرات داخلية وخارجية وأنظمة تسجيل متقدمة.</p>
+                    </div>
+                    <div class="step-item">
+                        <h5>تركيب الكاميرات المتخصصة</h5>
+                        <p>قم بتركيب كاميرات متخصصة مثل كاميرات PTZ للتحكم عن بعد وكاميرات ذات دقة عالية.</p>
+                    </div>
+                    <div class="step-item">
+                        <h5>إعداد مركز المراقبة</h5>
+                        <p>قم بإعداد غرفة مراقبة مركزية مزودة بشاشات متعددة وأنظمة تخزين احتياطية.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم قطع التوصيل -->
+    <section id="accessories" class="container my-5">
+        <h2 class="section-title">قطع التوصيل والملحقات</h2>
+        <div class="loading" id="accessoriesLoading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">جاري التحميل...</span>
+            </div>
+        </div>
+        <div class="row" id="accessoriesContainer">
+            <!-- سيتم ملء هذا القسم بالبيانات من API -->
+        </div>
+    </section>
+
+    <!-- قسم نصائح التركيب -->
+    <section id="tips" class="container my-5">
+        <h2 class="section-title">نصائح لتركيب أنظمة المراقبة</h2>
+        <div class="tips-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-warning fa-2x me-3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5>اختر المواقع المناسبة</h5>
+                            <p>ضع الكاميرات في أماكن مرتفعة ومحمية من العوامل الجوية مع ضمان تغطية الزوايا المهمة.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-warning fa-2x me-3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5>اهتم بالإضاءة</h5>
+                            <p>تأكد من وجود إضاءة كافية في المناطق المراقبة أو اختر كاميرات مزودة برؤية ليلية.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-warning fa-2x me-3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5>حماية الكابلات</h5>
+                            <p>استخدم قنوات حماية للكابلات لحمايتها من التلف والعبث.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-warning fa-2x me-3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5>التأكد من التغطية الشاملة</h5>
+                            <p>تأكد من عدم وجود نقاط عمياء في نظام المراقبة الخاص بك.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-warning fa-2x me-3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5>الصيانة الدورية</h5>
+                            <p>قم بتنظيف عدسات الكاميرات بانتظام وفحص النظام بشكل دوري.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-warning fa-2x me-3"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5>النسخ الاحتياطي</h5>
+                            <p>احرص على عمل نسخ احتياطية للتسجيلات الهامة وحماية النظام بكلمة مرور قوية.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>نظام الحماية الشامل</h5>
+                    <p>نوفر حلول أمنية متكاملة للمنازل والشركات للحماية من السرقة والاختراق.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#brands" class="text-light">الماركات</a></li>
+                        <li><a href="#installation" class="text-light">طريقة التركيب</a></li>
+                        <li><a href="#accessories" class="text-light">قطع التوصيل</a></li>
+                        <li><a href="#tips" class="text-light">نصائح التركيب</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>اتصل بنا</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> 0123456789</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@security-system.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> الرياض، المملكة العربية السعودية</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="text-center">
+                <p>© 2023 نظام الحماية الشامل. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript المخصص -->
+    <script>
+        // API URLs
+        const BRANDS_API_URL = 'https://671e18d15a38f76b6a1249c8.mockapi.io/api/brands';
+        const ACCESSORIES_API_URL = 'https://671e18d15a38f76b6a1249c8.mockapi.io/api/accessories';
+        
+        // بيانات افتراضية في حالة فشل API
+        const defaultBrands = [
+            {
+                id: 1,
+                name: "Hikvision",
+                category: "camera",
+                compatibility: ["home", "business"],
+                image: "https://via.placeholder.com/200x120/3498db/ffffff?text=Hikvision",
+                description: "كاميرات مراقبة عالية الدقة مع رؤية ليلية متقدمة وتقنية الكشف الذكي.",
+                installation: "سهلة التركيب مع دعم كامل لأنظمة المنازل والشركات.",
+                price: "450 ريال"
+            },
+            {
+                id: 2,
+                name: "Dahua",
+                category: "camera",
+                compatibility: ["home", "business"],
+                image: "https://via.placeholder.com/200x120/e74c3c/ffffff?text=Dahua",
+                description: "أنظمة مراقبة متكاملة مع تقنيات تحليل فيديو متقدمة.",
+                installation: "توافق مع مختلف أنظمة الشبكات وإعدادات سهلة.",
+                price: "380 ريال"
+            }
+        ];
+        
+        const defaultAccessories = [
+            {
+                id: 1,
+                name: "كابل طاقة",
+                image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Power+Cable",
+                description: "كابلات طاقة معزولة ومقاومة للعوامل الجوية.",
+                price: "25 ريال"
+            },
+            {
+                id: 2,
+                name: "كابل شبكة",
+                image: "https://via.placeholder.com/150x100/95a5a6/ffffff?text=Network+Cable",
+                description: "كابلات شبكة Cat5e و Cat6 لنقل البيانات بجودة عالية.",
+                price: "35 ريال"
+            }
+        ];
+
+        // جلب البيانات من API
+        async function fetchData(url, fallbackData) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('فشل في جلب البيانات');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('خطأ في جلب البيانات:', error);
+                return fallbackData;
+            }
+        }
+
+        // عرض الماركات
+        function displayBrands(brandsToShow) {
+            const container = document.getElementById('brandsContainer');
+            container.innerHTML = '';
+            
+            if (brandsToShow.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><p>لا توجد منتجات مطابقة لبحثك.</p></div>';
+                return;
+            }
+            
+            brandsToShow.forEach(brand => {
+                const compatibilityText = Array.isArray(brand.compatibility) ? 
+                    brand.compatibility.map(c => c === 'home' ? 'المنازل' : 'الشركات').join(' و ') : 
+                    (brand.compatibility === 'both' ? 'المنازل والشركات' : brand.compatibility);
+                
+                const card = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card brand-card" data-category="${brand.category}" data-compatibility="${brand.compatibility}" data-brand="${brand.name.toLowerCase()}">
+                            <img src="${brand.image}" class="card-img-top brand-logo" alt="${brand.name}" onerror="this.src='https://via.placeholder.com/200x120/95a5a6/ffffff?text=No+Image'">
+                            <div class="card-body">
+                                <h5 class="card-title">${brand.name}</h5>
+                                <p class="card-text">${brand.description}</p>
+                                <p><strong>التوافق:</strong> ${compatibilityText}</p>
+                                <p><strong>التركيب:</strong> ${brand.installation || 'سهل التركيب مع دليل مفصل.'}</p>
+                                ${brand.price ? `<p class="price-tag">${brand.price}</p>` : ''}
+                                <a href="#" class="btn btn-primary">تفاصيل التركيب</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // عرض قطع التوصيل
+        function displayAccessories(accessoriesToShow) {
+            const container = document.getElementById('accessoriesContainer');
+            container.innerHTML = '';
+            
+            if (accessoriesToShow.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><p>لا توجد قطع توصيل مطابقة لبحثك.</p></div>';
+                return;
+            }
+            
+            accessoriesToShow.forEach(accessory => {
+                const card = `
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="card accessory-card">
+                            <img src="${accessory.image}" class="card-img-top accessory-img" alt="${accessory.name}" onerror="this.src='https://via.placeholder.com/150x100/95a5a6/ffffff?text=No+Image'">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">${accessory.name}</h5>
+                                <p class="card-text">${accessory.description}</p>
+                                ${accessory.price ? `<p class="price-tag">${accessory.price}</p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // فلترة المنتجات
+        function filterProducts(brands, accessories) {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const compatibilityFilter = document.getElementById('compatibilityFilter').value;
+            const brandFilter = document.getElementById('brandFilter').value;
+            
+            let filteredBrands = brands;
+            
+            if (categoryFilter !== 'all') {
+                filteredBrands = filteredBrands.filter(brand => brand.category === categoryFilter);
+            }
+            
+            if (compatibilityFilter !== 'all') {
+                filteredBrands = filteredBrands.filter(brand => {
+                    if (compatibilityFilter === 'both') {
+                        return Array.isArray(brand.compatibility) ? 
+                            brand.compatibility.includes('home') && brand.compatibility.includes('business') :
+                            brand.compatibility === 'both';
+                    }
+                    return Array.isArray(brand.compatibility) ? 
+                        brand.compatibility.includes(compatibilityFilter) : 
+                        brand.compatibility === compatibilityFilter;
+                });
+            }
+            
+            if (brandFilter !== 'all') {
+                filteredBrands = filteredBrands.filter(brand => brand.name.toLowerCase() === brandFilter);
+            }
+            
+            displayBrands(filteredBrands);
+            
+            // عرض قطع التوصيل بناءً على التصنيف
+            if (categoryFilter === 'all' || categoryFilter === 'accessory') {
+                document.getElementById('accessoriesContainer').style.display = 'flex';
+                displayAccessories(accessories);
+            } else {
+                document.getElementById('accessoriesContainer').style.display = 'none';
+            }
+        }
+
+        // البحث
+        function searchProducts(brands, accessories) {
+            const searchInput = document.getElementById('searchInput');
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (searchTerm.trim() === '') {
+                displayBrands(brands);
+                displayAccessories(accessories);
+                return;
+            }
+            
+            const filteredBrands = brands.filter(brand => 
+                brand.name.toLowerCase().includes(searchTerm) || 
+                brand.description.toLowerCase().includes(searchTerm) ||
+                (brand.installation && brand.installation.toLowerCase().includes(searchTerm))
+            );
+            
+            const filteredAccessories = accessories.filter(accessory => 
+                accessory.name.toLowerCase().includes(searchTerm) || 
+                accessory.description.toLowerCase().includes(searchTerm)
+            );
+            
+            displayBrands(filteredBrands);
+            displayAccessories(filteredAccessories);
+        }
+
+        // ملء خيارات التصفية
+        function populateBrandFilters(brands) {
+            const brandFilter = document.getElementById('brandFilter');
+            const uniqueBrands = [...new Set(brands.map(brand => brand.name))];
+            
+            uniqueBrands.forEach(brand => {
+                const option = document.createElement('option');
+                option.value = brand.toLowerCase();
+                option.textContent = brand;
+                brandFilter.appendChild(option);
+            });
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', async function() {
+            // جلب البيانات من API
+            const brandsData = await fetchData(BRANDS_API_URL, defaultBrands);
+            const accessoriesData = await fetchData(ACCESSORIES_API_URL, defaultAccessories);
+            
+            // إخفاء مؤشرات التحميل
+            document.getElementById('brandsLoading').style.display = 'none';
+            document.getElementById('accessoriesLoading').style.display = 'none';
+            
+            // عرض البيانات
+            displayBrands(brandsData);
+            displayAccessories(accessoriesData);
+            populateBrandFilters(brandsData);
+            
+            // إضافة مستمعي الأحداث للفلترة
+            document.getElementById('categoryFilter').addEventListener('change', () => filterProducts(brandsData, accessoriesData));
+            document.getElementById('compatibilityFilter').addEventListener('change', () => filterProducts(brandsData, accessoriesData));
+            document.getElementById('brandFilter').addEventListener('change', () => filterProducts(brandsData, accessoriesData));
+            
+            // إضافة مستمع حدث للبحث
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                searchProducts(brandsData, accessoriesData);
+            });
+            
+            // البحث أثناء الكتابة
+            document.getElementById('searchInput').addEventListener('input', () => {
+                searchProducts(brandsData, accessoriesData);
+            });
+        });
+    </script>
+</body>
+</html>
